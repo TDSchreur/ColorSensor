@@ -73,7 +73,7 @@ static void getRGBColors(az_span payload, az_span *out_payload)
   else
   {
     Logger.Error("KLEUR NIET KUNNEN BEPALEN");
-    kleur = "leeg"
+    kleur = "leeg";
   };
 
   document["red"] = r;
