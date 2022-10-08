@@ -16,38 +16,14 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_614MS, TCS347
 
 static void receivedCallback(String payload)
 {
-  // StaticJsonDocument<256> document;
-  // DeserializationError err = deserializeJson(document, payload);
-
-  // if (err)
-  // {
-  //   Logger.Info("Failed to deserialize payload: ");
-  //   Logger.Info(payload);
-  // }
-
-  // if (document["DeviceOn"] == true)
-  // {
-  //   digitalWrite(LEDPIN, HIGH);
-  // }
-  // else if (document["DeviceOn"] == false)
-  // {
-  //   digitalWrite(LEDPIN, LOW);
-  // }
+  // todo
 }
 
-static void getTemperaturePayload(az_span payload, az_span *out_payload)
+static void getRGBColors(az_span payload, az_span *out_payload)
 {
   // String json;
   StaticJsonDocument<256> document;
   char buffer[256];
-
-  // // Reading temperature or humidity takes about 250 milliseconds!
-  // // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  // float h = dht.readHumidity();
-  // // Read temperature as Celsius (the default)
-  // float t = dht.readTemperature();
-  // // Read temperature as Fahrenheit (isFahrenheit = true)
-  // float f = dht.readTemperature(true);
 
   tcs.getRGB(&r, &g, &b);
 
@@ -83,14 +59,10 @@ void setup(void)
       ;
   }
 
-  AzIoTClient::establishConnection(receivedCallback, getTemperaturePayload);
+  AzIoTClient::establishConnection(receivedCallback, getRGBColors);
 }
 
 void loop(void)
 {
   AzIoTClient::processTelemetry(true);
-
-  // tcs.getRGB(&r, &g, &b);
-  // snprintf(buffer, sizeof(buffer), "R: %.0f G: %.0f B: %.0f", r, g, b);
-  // Logger.Info(buffer);
 }
